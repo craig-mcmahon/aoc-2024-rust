@@ -31,7 +31,7 @@ fn main() -> Result<()> {
 
     fn part1<R: BufRead>(reader: R) -> Result<usize> {
         let mut answer = 0;
-        let data = build_word_search(reader)?;
+        let data = build_2d_vec(reader)?;
         for i in 0..data.len() {
             for j in 0..data[i].len() {
                 if data[i][j] != 'X' {
@@ -56,7 +56,7 @@ fn main() -> Result<()> {
 
     fn part2<R: BufRead>(reader: R) -> Result<usize> {
         let mut answer = 0;
-        let data = build_word_search(reader)?;
+        let data = build_2d_vec(reader)?;
         // reducing the loop size to avoid having to check boundaries
         for i in 1..(data.len()-1) {
             for j in 1..(data[i].len()-1) {
@@ -87,20 +87,6 @@ fn main() -> Result<()> {
     //endregion
 
     Ok(())
-}
-
-fn build_word_search<R: BufRead>(reader: R) -> Result<Vec<Vec<char>>> {
-    let mut data = Vec::new();
-    for line in reader.lines() {
-        let line2 = line?;
-        let mut l3 = Vec::new();
-
-        for l2 in line2.chars() {
-            l3.push(l2);
-        }
-        data.push(l3);
-    }
-    Ok(data)
 }
 
 fn search(grid: &Vec<Vec<char>>, i: usize, j: usize) -> usize {
